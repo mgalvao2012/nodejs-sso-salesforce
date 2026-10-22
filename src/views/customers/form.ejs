@@ -1,0 +1,17 @@
+<%- include('../partials/head', { title }) %>
+<h1><%= title %></h1>
+<form method="post" action="<%= customer ? `/customers/${customer.id}` : '/customers' %>">
+  <input type="hidden" name="_csrf" value="<%= csrfToken() %>">
+  <% if (customer) { %><input type="hidden" name="_method" value="PUT"><% } %>
+  <label>Name <input name="name" value="<%= values.name %>" maxlength="200" required></label>
+  <% if (errors.name) { %><span class="error"><%= errors.name %></span><% } %>
+  <label>Document (CPF/CNPJ) <input name="document" value="<%= values.document %>" required></label>
+  <% if (errors.document) { %><span class="error"><%= errors.document %></span><% } %>
+  <label>Email <input type="email" name="email" value="<%= values.email || '' %>"></label>
+  <% if (errors.email) { %><span class="error"><%= errors.email %></span><% } %>
+  <label>Phone <input name="phone" value="<%= values.phone || '' %>" maxlength="20"></label>
+  <% if (errors.phone) { %><span class="error"><%= errors.phone %></span><% } %>
+  <button type="submit">Save</button>
+  <a href="/customers">Cancel</a>
+</form>
+<%- include('../partials/foot') %>

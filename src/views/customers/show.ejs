@@ -1,0 +1,15 @@
+<%- include('../partials/head', { title }) %>
+<h1><%= customer.name %></h1>
+<dl>
+  <dt>Document (CPF/CNPJ)</dt><dd><%= customer.document %></dd>
+  <dt>Email</dt><dd><%= customer.email || '—' %></dd>
+  <dt>Phone</dt><dd><%= customer.phone || '—' %></dd>
+</dl>
+<a class="button" href="/customers/<%= customer.id %>/edit">Edit</a>
+<form method="post" action="/customers/<%= customer.id %>" class="inline">
+  <input type="hidden" name="_csrf" value="<%= csrfToken() %>">
+  <input type="hidden" name="_method" value="DELETE">
+  <button type="submit">Delete</button>
+</form>
+<a href="/customers">Back</a>
+<%- include('../partials/foot') %>

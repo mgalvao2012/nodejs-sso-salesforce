@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ExtlClntAppCanvasSettings xmlns="http://soap.sforce.com/2006/04/metadata">
+    <accessMethod>Post</accessMethod>
+    <canvasLocationOptions>Visualforce</canvasLocationOptions>
+    <canvasUrl>https://node-crud.example.com/auth/canvas</canvasUrl>
+    <externalClientApplication>NodeCrudEca</externalClientApplication>
+    <label>NodeCrudEca_canvas</label>
+    <samlInitiationMethod>None</samlInitiationMethod>
+</ExtlClntAppCanvasSettings>

@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title><%= typeof title !== 'undefined' ? title : 'CRUD App' %></title>
+  <link rel="stylesheet" href="/assets/app.css">
+</head>
+<body>
+<% const embedded = (typeof authMethod !== 'undefined' && authMethod === 'canvas') || (typeof isEmbedded !== 'undefined' && isEmbedded); %>
+<% if (!embedded) { %>
+<header class="top">
+  <a class="brand" href="/">CRUD App</a>
+  <% if (typeof currentUser !== 'undefined' && currentUser) { %>
+  <nav>
+    <a href="/customers">Customers</a>
+    <% if (currentUser.role === 'admin') { %><a href="/users">Users</a><% } %>
+    <form method="post" action="/auth/logout" class="inline">
+      <input type="hidden" name="_csrf" value="<%= csrfToken() %>">
+      <button type="submit">Sign out (<%= currentUser.name %>)</button>
+    </form>
+  </nav>
+  <% } else { %>
+  <nav><a href="/auth/login">Sign in</a></nav>
+  <% } %>
+</header>
+<% } %>
+<main>

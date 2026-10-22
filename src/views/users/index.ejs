@@ -1,0 +1,19 @@
+<%- include('../partials/head', { title }) %>
+<h1>Users</h1>
+<a class="button" href="/users/new">New user</a>
+<table>
+  <thead><tr><th>Name</th><th>Email</th><th>Role</th><th>Status</th><th>Salesforce User Id</th><th></th></tr></thead>
+  <tbody>
+  <% users.forEach((u) => { %>
+    <tr>
+      <td><%= u.name %></td>
+      <td><%= u.email %></td>
+      <td><%= u.role %></td>
+      <td><%= !u.active ? 'Inactive' : (u.lockedUntil && u.lockedUntil > new Date() ? 'Locked' : 'Active') %></td>
+      <td><%= u.sfUserId || '—' %></td>
+      <td><a href="/users/<%= u.id %>/edit">Edit</a></td>
+    </tr>
+  <% }) %>
+  </tbody>
+</table>
+<%- include('../partials/foot') %>

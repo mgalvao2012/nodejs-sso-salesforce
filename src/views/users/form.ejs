@@ -1,0 +1,41 @@
+<%- include('../partials/head', { title }) %>
+<h1><%= title %></h1>
+<% if (errors._form) { %><p class="error" role="alert"><%= errors._form %></p><% } %>
+<% if (target && target.lockedUntil && target.lockedUntil > new Date()) { %>
+  <p class="notice">Locked until <%= target.lockedUntil.toLocaleString('en-US') %>.</p>
+  <form method="post" action="/users/<%= target.id %>/unlock">
+    <input type="hidden" name="_csrf" value="<%= csrfToken() %>">
+    <button type="submit">Unlock</button>
+  </form>
+<% } %>
+<form method="post" action="<%= target ? `/users/${target.id}` : '/users' %>">
+  <input type="hidden" name="_csrf" value="<%= csrfToken() %>">
+  <% if (target) { %><input type="hidden" name="_method" value="PUT"><% } %>
+  <label>Name <input name="name" value="<%= values.name %>" maxlength="200" required></label>
+  <% if (errors.name) { %><span class="error"><%= errors.name %></span><% } %>
+  <label>Email <input type="email" name="email" value="<%= values.email %>" required></label>
+  <% if (errors.email) { %><span class="error"><%= errors.email %></span><% } %>
+  <label>Role
+    <select name="role">
+      <option value="user" <%= values.role === 'user' ? 'selected' : '' %>>User</option>
+      <option value="admin" <%= values.role === 'admin' ? 'selected' : '' %>>Administrator</option>
+    </select>
+  </label>
+  <label><input type="checkbox" name="active" <%= values.active ? 'checked' : '' %>> Active</label>
+  <label>Password <input type="password" name="password" autocomplete="new-password" minlength="12" <%= target ? '' : 'required' %>></label>
+  <% if (target) { %><small>Leave blank to keep the current password.</small><% } %>
+  <% if (errors.password) { %><span class="error"><%= errors.password %></span><% } %>
+  <label>Salesforce User Id <input name="sfUserId" value="<%= values.sfUserId || '' %>" maxlength="18" pattern="005[a-zA-Z0-9]{12}([a-zA-Z0-9]{3})?"></label>
+  <small>Setup → Users → the user Id (starts with 005). Leave blank to remove the link.</small>
+  <% if (errors.sfUserId) { %><span class="error"><%= errors.sfUserId %></span><% } %>
+  <button type="submit">Save</button>
+  <a href="/users">Cancel</a>
+</form>
+<% if (target) { %>
+<form method="post" action="/users/<%= target.id %>">
+  <input type="hidden" name="_csrf" value="<%= csrfToken() %>">
+  <input type="hidden" name="_method" value="DELETE">
+  <button type="submit">Delete user</button>
+</form>
+<% } %>
+<%- include('../partials/foot') %>

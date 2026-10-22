@@ -1,0 +1,13 @@
+<%- include('partials/head', { title: 'Sign in' }) %>
+<h1>Sign in</h1>
+<% if (notice) { %><p class="notice"><%= notice %></p><% } %>
+<% if (error) { %><p class="error" role="alert"><%= error %></p><% } %>
+<form method="post" action="/auth/login">
+  <input type="hidden" name="_csrf" value="<%= csrfToken() %>">
+  <input type="hidden" name="next" value="<%= next %>">
+  <% if (isEmbedded) { %><input type="hidden" name="embedded" value="1"><% } %>
+  <label>Email <input type="email" name="email" value="<%= email %>" autocomplete="username" required autofocus></label>
+  <label>Password <input type="password" name="password" autocomplete="current-password" required></label>
+  <button type="submit">Sign in</button>
+</form>
+<%- include('partials/foot') %>
