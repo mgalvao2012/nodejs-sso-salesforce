@@ -1,4 +1,4 @@
-# node-crud-sso
+# node-sso-salesforce
 
 Customer and user management (CRUD) in Node.js + PostgreSQL that runs inside Salesforce as a tab, with automatic sign-in.
 
